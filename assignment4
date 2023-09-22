@@ -1,0 +1,41 @@
+import java.util.Arrays;
+
+public class SortedMatrixSearch {
+    public static int[] matrixSearch(int[][] matrix, int key) {
+        int numRows = matrix.length;
+        int numCols = matrix[0].length;
+        
+        int row = 0;
+        int col = numCols - 1; // Start from the top-right corner
+        
+        while (row < numRows && col >= 0) {
+            int current = matrix[row][col];
+            
+            if (current == key) {
+                return new int[]{row, col}; // Key found
+            } else if (current < key) {
+                // Key must be in the rows below
+                row++;
+            } else {
+                // Key must be in the columns to the left
+                col--;
+            }
+        }
+        
+        // Key not found
+        return new int[]{-1, -1};
+    }
+    
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 2, 3, 4},
+            {5, 6, 7, 8},
+            {9, 10, 11, 12}
+        };
+        
+        int key = 5;
+        int[] result = matrixSearch(matrix, key);
+        
+        System.out.println(Arrays.toString(result)); // Output: [1, 0]
+    }
+}
